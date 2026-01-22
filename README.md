@@ -1,70 +1,81 @@
-# Getting Started with Create React App
+Little Lemon Table Reservation App
+Little Lemon is a family-owned Mediterranean restaurant, focused on traditional recipes served with a modern twist. This responsive web application allows customers to browse the menu and reserve a table online with real-time validation.
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+Project Overview
+This project was developed as a capstone for the Meta Front-End Developer Professional Certificate. The goal was to create a functional, user-friendly booking system that ensures a seamless experience across desktop, tablet and mobile devices.
 
-## Available Scripts
+Key Features
+Interactive Booking Form: Users can select dates, times and number of guests.
 
-In the project directory, you can run:
+Dynamic Time Slots: Available times update based on the selected date.
 
-### `npm start`
+Form Validation: Client-side validation to ensure all required information is captured correctly.
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+Responsive Design: Optimized for all screen sizes using CSS Grid and Flexbox.
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+Modern UI/UX: Follows the Little Lemon brand guidelines for typography and color palette.
 
-### `npm test`
+Tech Stack
+Frontend: React.js
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+Styling: CSS3 / SASS (Modules)
 
-### `npm run build`
+State Management: React Hooks (useReducer, useState)
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+Testing: Jest & React Testing Library
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+Version Control: Git & GitHub
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+Component Architecture
+The application is built with a modular component structure to ensure maintainability and scalability.
 
-### `npm run eject`
+Header: Navigation and branding.
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+Main: Hero section and promotional content.
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+Booking Page: The core logic, including the BookingForm and BookingSlots logic.
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+Footer: Contact information and social links.
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+Installation & Setup
+Clone the repository:
 
-## Learn More
+Bash
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+git clone https://github.com/your-username/little-lemon-capstone.git
+Navigate to the directory:
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+Bash
 
-### Code Splitting
+cd little-lemon-capstone
+Install dependencies:
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+Bash
 
-### Analyzing the Bundle Size
+npm install
+Start the development server:
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+Bash
 
-### Making a Progressive Web App
+npm start
+Testing
+To run the unit tests for the booking validation and state updates:
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+Bash
 
-### Advanced Configuration
+npm test
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
+Design Principles
+The project adheres to the Little Lemon style guide:
 
-### Deployment
+Primary Colors: Green (#495E57) and Yellow (#F4CE14)
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
+Secondary Colors: Orange (#EE9972) and Light Grey (#EDEFEE)
 
-### `npm run build` fails to minify
+Fonts: Markazi Text (Headings) and Karla (Body)
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+Author
+Isabel M
+
+License
+This project is licensed under the MIT License
