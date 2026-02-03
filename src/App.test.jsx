@@ -1,5 +1,5 @@
 import { render, screen, fireEvent, waitFor } from "@testing-library/react";
-import Booking from ".";
+import Booking from "./Views/Booking";
 import { MemoryRouter } from "react-router-dom";
 
 // Mock scrollIntoView
@@ -16,7 +16,7 @@ jest.mock("react-router-dom", () => ({
   useNavigate: () => mockNavigate,
 }));
 
-jest.mock("../../hooks/useBookingReducer", () => ({
+jest.mock("./hooks/useBookingReducer", () => ({
   BOOKING_ACTIONS: {
     SET_DATE: "SET_DATE",
     SET_TIME: "SET_TIME",
