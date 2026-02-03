@@ -127,7 +127,7 @@ export default function Booking() {
             onClick={currentStep === 3 ? handleReserve : handleNext}
             className="flex-1 px-8 py-4 rounded-2xl font-karla font-bold text-lg bg-[#495E57] text-white hover:bg-gray-800 transition-colors"
           >
-            {currentStep === 3 ? "Reserve" : "Next"}
+            {currentStep === 3 ? "Submit" : "Next"}
           </button>
         </div>
       </div>
