@@ -24,6 +24,7 @@ const fetchAPI = function (date) {
   return result;
 };
 const submitAPI = function (formData) {
+  localStorage.setItem("bookingData", JSON.stringify(formData));
   return true;
 };
 

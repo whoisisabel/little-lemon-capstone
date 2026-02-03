@@ -18,17 +18,14 @@ export default function Booking() {
   const navigate = useNavigate();
 
   const scrollToTop = () => {
-    // Scroll smoothly to top of the form section
     const formContainer = document.querySelector("#booking-form");
     if (formContainer) {
       formContainer.scrollIntoView({ behavior: "smooth", block: "start" });
     } else {
-      // fallback: scroll to top of page
       window.scrollTo({ top: 0, behavior: "smooth" });
     }
   };
 
-  // Validation functions
   const validateStep1 = () => {
     if (!bookingState.date) {
       toast.error("Please select a date");
@@ -50,7 +47,6 @@ export default function Booking() {
       toast.error("Please enter your phone number");
       return false;
     }
-    // Basic phone validation
     const phoneRegex = /^[\d\s\-+()]+$/;
     if (!phoneRegex.test(bookingState.phone)) {
       toast.error("Please enter a valid phone number");
@@ -60,16 +56,12 @@ export default function Booking() {
   };
 
   const handleNext = () => {
-    if (currentStep === 1) {
-      if (validateStep1()) {
-        setCurrentStep(2);
-        scrollToTop();
-      }
-    } else if (currentStep === 2) {
-      if (validateStep2()) {
-        setCurrentStep(3);
-        scrollToTop();
-      }
+    if (currentStep === 1 && validateStep1()) {
+      setCurrentStep(2);
+      scrollToTop();
+    } else if (currentStep === 2 && validateStep2()) {
+      setCurrentStep(3);
+      scrollToTop();
     }
   };
 
@@ -80,14 +72,19 @@ export default function Booking() {
     }
   };
 
-  const handleReserve = () => {
-    const success = submitAPI(bookingState);
+  // ✅ Fixed async handleReserve
+  const handleReserve = async () => {
+    try {
+      const success = await submitAPI(bookingState);
 
-    if (success) {
-      localStorage.setItem("bookingData", JSON.stringify(bookingState));
-      navigate("/confirmation");
-    } else {
-      toast.error("Failed to submit reservation. Please try again.");
+      if (success) {
+        navigate("/confirmation");
+      } else {
+        toast.error("Failed to submit reservation. Please try again.");
+      }
+    } catch (error) {
+      console.error("Booking submission failed:", error);
+      toast.error("Unexpected error. Please try again.");
     }
   };
 
@@ -117,7 +114,7 @@ export default function Booking() {
         {currentStep === 3 && <ConfirmationStep bookingState={bookingState} />}
       </div>
 
-      <div className=" bg-white border-t border-gray-200 p-2 sm:p-4 ">
+      <div className="bg-white border-t border-gray-200 p-2 sm:p-4">
         <div className="max-w-2xl mx-auto flex gap-4">
           {currentStep > 1 && (
             <button
