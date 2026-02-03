@@ -118,6 +118,7 @@ export default function Booking() {
         <div className="max-w-2xl mx-auto flex gap-4">
           {currentStep > 1 && (
             <button
+              aria-label="back"
               onClick={handleBack}
               className="px-8 py-4 rounded-2xl font-karla font-bold text-lg bg-gray-200 text-black hover:bg-gray-300 transition-colors"
             >
@@ -126,6 +127,7 @@ export default function Booking() {
           )}
 
           <button
+            aria-label="next"
             onClick={currentStep === 3 ? handleReserve : handleNext}
             className="flex-1 px-8 py-4 rounded-2xl font-karla font-bold text-lg bg-[#495E57] text-white hover:bg-gray-800 transition-colors"
           >

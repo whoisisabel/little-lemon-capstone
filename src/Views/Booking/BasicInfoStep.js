@@ -39,6 +39,7 @@ export default function BasicInfoStep({
         <div className="flex gap-3 overflow-x-auto pb-2">
           {sampleDates.map((item) => (
             <button
+              aria-label="date"
               key={item.fullDate}
               onClick={() =>
                 dispatch({
@@ -66,6 +67,7 @@ export default function BasicInfoStep({
           <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
             {bookingState.availableTimes.map((timeSlot) => (
               <button
+                aria-label="time"
                 key={timeSlot}
                 onClick={() =>
                   dispatch({
@@ -122,6 +124,7 @@ export default function BasicInfoStep({
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
           {["Birthday", "Anniversary"].map((occasionType) => (
             <button
+              aria-label="occasion"
               key={occasionType}
               onClick={() =>
                 dispatch({

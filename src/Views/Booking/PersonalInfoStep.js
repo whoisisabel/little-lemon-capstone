@@ -6,7 +6,7 @@ export default function PersonalInfoStep({ bookingState, dispatch }) {
     <div className="w-full max-w-2xl mx-auto px-4 sm:px-6 py-8 space-y-8 pt-2">
       {/* Name */}
       <div className="space-y-4">
-        <label className="font-karla font-bold text-lg text-[#1f1f1f]">
+        <label className="font-karla font-bold text-lg text-[#1f1f1f]" htmlFor="name">
           Name
         </label>
         <div className="space-y-4">
@@ -31,7 +31,7 @@ export default function PersonalInfoStep({ bookingState, dispatch }) {
 
       {/* Phone Number */}
       <div className="space-y-4">
-        <label className="font-karla font-bold text-lg text-[#1f1f1f]">
+        <label className="font-karla font-bold text-lg text-[#1f1f1f]" htmlFor="number">
           Phone Number
         </label>
         <div className="space-y-4">
@@ -56,7 +56,7 @@ export default function PersonalInfoStep({ bookingState, dispatch }) {
 
       {/* Additional Preferences */}
       <div className="space-y-4">
-        <label className="font-karla font-normal text-[#1f1f1f] text-base">
+        <label className="font-karla font-normal text-[#1f1f1f] text-base" htmlFor="additional-preferences">
           Additional preferences:
         </label>
         <textarea

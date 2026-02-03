@@ -146,6 +146,7 @@ export default function BookingConfirmation() {
             <div className="bg-white border-t border-gray-200 p-4 sm:p-6">
               <div className="max-w-2xl mx-auto">
                 <button
+                  aria-label="make-another-reservation"
                   onClick={() => handleNavigate()}
                   className="w-full px-8 py-4 rounded-2xl font-karla font-bold text-lg bg-[#495E57] text-white hover:bg-gray-800 transition-colors"
                 >
@@ -158,6 +159,7 @@ export default function BookingConfirmation() {
           <div className="bg-white p-4 sm:p-6">
             <div className="max-w-2xl mx-auto">
               <button
+                aria-label="make-reservation"
                 onClick={() => handleNavigate()}
                 className="w-full px-8 py-4 rounded-2xl font-karla font-bold text-lg bg-[#495E57] text-white hover:bg-gray-800 transition-colors"
               >
