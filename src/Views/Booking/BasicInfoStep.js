@@ -2,7 +2,11 @@ import { Minus, Plus } from "lucide-react";
 import { BOOKING_ACTIONS } from "../../hooks/useBookingReducer";
 import { useEffect } from "react";
 
-export default function BasicInfoStep({ bookingState, dispatch }) {
+export default function BasicInfoStep({
+  bookingState,
+  dispatch,
+  updateAvailableTimes,
+}) {
   // Sample dates for the date selector
   const getSampleDates = (days = 6) => {
     const today = new Date();
@@ -22,13 +26,10 @@ export default function BasicInfoStep({ bookingState, dispatch }) {
 
   // Update available times when date changes
   useEffect(() => {
-    if (bookingState.date) {
-      dispatch({
-        type: BOOKING_ACTIONS.UPDATE_AVAILABLE_TIMES,
-        payload: bookingState.date,
-      });
+    if (bookingState.date && updateAvailableTimes) {
+      updateAvailableTimes(bookingState.date);
     }
-  }, [bookingState.date, dispatch]);
+  }, [bookingState.date, updateAvailableTimes]);
 
   return (
     <div className="w-full max-w-2xl mx-auto px-4 sm:px-6 py-8 space-y-8">
@@ -61,23 +62,32 @@ export default function BasicInfoStep({ bookingState, dispatch }) {
       {/* Time Selection */}
       <div className="space-y-4">
         <h3 className="font-karla font-bold text-lgtext-[#1f1f1f]">Time</h3>
-        <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
-          {bookingState.availableTimes.map((timeSlot) => (
-            <button
-              key={timeSlot}
-              onClick={() =>
-                dispatch({ type: BOOKING_ACTIONS.SET_TIME, payload: timeSlot })
-              }
-              className={`px-6 py-4 rounded-2xl font-karla font-bold text-base transition-all ${
-                bookingState.time === timeSlot
-                  ? "bg-[#F4CE14] text-white"
-                  : "bg-[#f2f2f2] text-[#cdcdcd] hover:bg-[#F4CE14] hover:text-white"
-              }`}
-            >
-              {timeSlot}
-            </button>
-          ))}
-        </div>
+        {bookingState.date ? (
+          <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
+            {bookingState.availableTimes.map((timeSlot) => (
+              <button
+                key={timeSlot}
+                onClick={() =>
+                  dispatch({
+                    type: BOOKING_ACTIONS.SET_TIME,
+                    payload: timeSlot,
+                  })
+                }
+                className={`px-6 py-4 rounded-2xl font-karla font-bold text-base transition-all ${
+                  bookingState.time === timeSlot
+                    ? "bg-[#F4CE14] text-white"
+                    : "bg-[#f2f2f2] text-[#cdcdcd] hover:bg-[#F4CE14] hover:text-white"
+                }`}
+              >
+                {timeSlot}
+              </button>
+            ))}
+          </div>
+        ) : (
+          <p className="text-gray-500">
+            Please select a date to see available times.
+          </p>
+        )}
       </div>
 
       {/* Guests Selection */}

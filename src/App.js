@@ -4,6 +4,7 @@ import LandingPage from "./Views/LandingPage";
 import Booking from "./Views/Booking";
 import "./App.css";
 import PageLoader from "./Views/PageLoader";
+import BookingConfirmation from "./Views/Booking/BookingConfirmation";
 
 function App() {
   const [isLoading, setIsLoading] = useState(true);
@@ -25,6 +26,7 @@ function App() {
       <Routes>
         <Route path="/" element={<LandingPage />} />
         <Route path="/booking" element={<Booking />} />
+        <Route path="/confirmation" element={<BookingConfirmation />} />
       </Routes>
     </Router>
   );

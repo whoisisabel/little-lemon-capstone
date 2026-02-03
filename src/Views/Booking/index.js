@@ -1,9 +1,6 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import {
-  BOOKING_ACTIONS,
-  useBookingReducer,
-} from "../../hooks/useBookingReducer";
+import { useBookingReducer } from "../../hooks/useBookingReducer";
 import Navigation from "../Navigation";
 import Hero from "./Hero";
 import ProgressBar from "./ProgressBar";
@@ -15,7 +12,8 @@ import { toast, Toaster } from "sonner";
 
 export default function Booking() {
   const [currentStep, setCurrentStep] = useState(1);
-  const [bookingState, dispatch] = useBookingReducer();
+  const [bookingState, dispatch, updateAvailableTimes, submitAPI] =
+    useBookingReducer();
 
   const navigate = useNavigate();
 
@@ -83,16 +81,19 @@ export default function Booking() {
   };
 
   const handleReserve = () => {
-    // In a real app, this would send the booking to the server
-    toast.success("Reservation confirmed! See you soon at Little Lemon.");
+    const success = submitAPI(bookingState);
 
-    // Reset form after a delay
-    setTimeout(() => {
-      dispatch({ type: BOOKING_ACTIONS.RESET });
-      // setCurrentStep(1);
-      navigate("/");
-    }, 2000);
+    if (success) {
+      localStorage.setItem("bookingData", JSON.stringify(bookingState));
+      navigate("/confirmation");
+    } else {
+      toast.error("Failed to submit reservation. Please try again.");
+    }
   };
+
+  useEffect(() => {
+    scrollToTop();
+  }, []);
 
   return (
     <div className="min-h-screen bg-white flex flex-col">
@@ -104,7 +105,11 @@ export default function Booking() {
         <ProgressBar currentStep={currentStep} />
 
         {currentStep === 1 && (
-          <BasicInfoStep bookingState={bookingState} dispatch={dispatch} />
+          <BasicInfoStep
+            bookingState={bookingState}
+            dispatch={dispatch}
+            updateAvailableTimes={updateAvailableTimes}
+          />
         )}
         {currentStep === 2 && (
           <PersonalInfoStep bookingState={bookingState} dispatch={dispatch} />

@@ -1,6 +1,32 @@
 import { useReducer } from "react";
 
-// Initial state
+const seededRandom = function (seed) {
+  var m = 2 ** 35 - 31;
+  var a = 185852;
+  var s = seed % m;
+  return function () {
+    return (s = (s * a) % m) / m;
+  };
+};
+
+const fetchAPI = function (date) {
+  let result = [];
+  let random = seededRandom(date.getDate());
+
+  for (let i = 17; i <= 23; i++) {
+    if (random() < 0.5) {
+      result.push(i + ":00");
+    }
+    if (random() < 0.5) {
+      result.push(i + ":30");
+    }
+  }
+  return result;
+};
+const submitAPI = function (formData) {
+  return true;
+};
+
 const initialState = {
   date: null,
   time: null,
@@ -9,19 +35,11 @@ const initialState = {
   name: "",
   phone: "",
   preferences: "",
-  availableTimes: [
-    "11:00",
-    "11:30",
-    "12:00",
-    "12:30",
-    "17:00",
-    "17:30",
-    "18:00",
-    "18:30",
-  ],
+  availableTimes: [], // will be fetched from API
 };
 
 // Action types
+
 export const BOOKING_ACTIONS = {
   SET_DATE: "SET_DATE",
   SET_TIME: "SET_TIME",
@@ -37,6 +55,7 @@ export const BOOKING_ACTIONS = {
 };
 
 // Reducer function
+
 function bookingReducer(state, action) {
   switch (action.type) {
     case "SET_DATE":
@@ -67,8 +86,9 @@ function bookingReducer(state, action) {
       return { ...state, preferences: action.payload };
 
     case "UPDATE_AVAILABLE_TIMES":
-      const times = generateAvailableTimes(action.payload);
-      return { ...state, availableTimes: times };
+      // Use API to get available times
+
+      return { ...state, availableTimes: action.payload };
 
     case "RESET":
       return initialState;
@@ -78,53 +98,19 @@ function bookingReducer(state, action) {
   }
 }
 
-// Helper function to generate available times
-function generateAvailableTimes(date) {
-  const baseLunchTimes = ["11:00", "11:30", "12:00", "12:30", "13:00", "13:30"];
-  const baseDinnerTimes = [
-    "17:00",
-    "17:30",
-    "18:00",
-    "18:30",
-    "19:00",
-    "19:30",
-    "20:00",
-    "20:30",
-  ];
-
-  if (!date) {
-    return [...baseLunchTimes, ...baseDinnerTimes];
-  }
-
-  const selectedDate = new Date(date);
-  const today = new Date();
-
-  const dayOfWeek = selectedDate.getDay();
-
-  // Weekend vs weekday availability
-  let availableTimes =
-    dayOfWeek === 0 || dayOfWeek === 6
-      ? [...baseLunchTimes, ...baseDinnerTimes]
-      : ["12:00", "12:30", "13:00", ...baseDinnerTimes];
-
-  const isToday = selectedDate.toDateString() === today.toDateString();
-
-  if (isToday) {
-    const currentMinutes = today.getHours() * 60 + today.getMinutes();
-
-    availableTimes = availableTimes.filter((time) => {
-      const [hours, minutes] = time.split(":").map(Number);
-      const slotMinutes = hours * 60 + minutes;
-      return slotMinutes > currentMinutes;
-    });
-  }
-
-  return availableTimes;
-}
-
 // Custom hook
-export function useBookingReducer() {
-  const [state, dispatch] = useReducer(bookingReducer, initialState);
 
-  return [state, dispatch];
+export function useBookingReducer() {
+  const [state, dispatch] = useReducer(bookingReducer, {
+    ...initialState,
+    date: new Date().toISOString().split("T")[0],
+  });
+
+  const updateAvailableTimes = (date) => {
+    const times = fetchAPI(new Date(date));
+
+    dispatch({ type: BOOKING_ACTIONS.UPDATE_AVAILABLE_TIMES, payload: times });
+  };
+
+  return [state, dispatch, updateAvailableTimes, submitAPI];
 }
